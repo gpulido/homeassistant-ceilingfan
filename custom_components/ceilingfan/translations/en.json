@@ -1,0 +1,18 @@
+{
+    "config": {
+        "error": {
+            "connection": "Cannot connect with Ceiling fan controler"
+          },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "The ip / host of the rx emitter",
+                    "username": "username for the ssh session",
+                    "password": "Password for the ssh session"
+                },
+                "description": "Enter your SSH rx transmitter config.",
+                "title": "Configuration"
+            }
+        }
+    }
+}

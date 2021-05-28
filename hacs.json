@@ -1,0 +1,5 @@
+{
+  "name": "homeassistant-ceilingfan",
+  "render_readme": true,
+  "iot_class": "assumed_state"
+}

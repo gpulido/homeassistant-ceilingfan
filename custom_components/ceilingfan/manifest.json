@@ -1,0 +1,11 @@
+{
+  "codeowners": ["@gpulido"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/gpulido/homeassistant-ceilingfan",
+  "domain": "ceilingfan",
+  "iot_class": "assumed_state",
+  "name": "CeilingFan",
+  "requirements": ["paramiko"],
+  "version": "1.0.0"
+}
