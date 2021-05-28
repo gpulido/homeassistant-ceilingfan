@@ -1,30 +1,20 @@
-from typing import Any, Callable, Dict, List, Optional
 import logging
+from typing import Any, Callable, Dict, List, Optional
 
-from voluptuous.validators import Boolean
 from homeassistant import config_entries, core
-from homeassistant.components.light import (
-    PLATFORM_SCHEMA,
-    LightEntity,
-)
-
-from homeassistant.const import (
-    CONF_HOST,
-    CONF_USERNAME,
-    CONF_PASSWORD,
-)
-
+from homeassistant.components.light import PLATFORM_SCHEMA, LightEntity
+from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.typing import (
     ConfigType,
     DiscoveryInfoType,
     HomeAssistantType,
 )
-
-
 import voluptuous as vol
-from .const import DOMAIN
+from voluptuous.validators import Boolean
+
 from .ceiling_fan import *
+from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -66,11 +56,13 @@ def setup_platform(
     add_entities(devices)
 
 
+#TODO: refactor common features from light & fan
 class CeilingFanLight(LightEntity):
 
     def __init__(self, gateway: CeilingFanGateway):
         self._gateway = gateway
         self._is_on = False
+        self._name = "Ceiling Fan Light"
 
 
     """Representation of a Ceiling Fan light."""
@@ -88,3 +80,12 @@ class CeilingFanLight(LightEntity):
     @property
     def is_on(self):
         return self._is_on
+
+    @property
+    def name(self):
+        """Return the name of the sensor."""
+        return self._name
+    
+    @property
+    def unique_id(self):
+        return self._gateway.unique_id() + '_Light'

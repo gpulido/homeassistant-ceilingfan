@@ -1,6 +1,6 @@
 from enum import Enum
-import paramiko
 
+import paramiko
 
 
 class CeilingFanCommand(Enum):
@@ -64,6 +64,10 @@ class CeilingFanGateway():
 
     def reverse_fan(self):        
         self._execute_command(CeilingFanCommand.REVERSE)
+    
+    def unique_id(self):
+        #TODO: review
+        return self._server
 
 
 if __name__ == '__main__':
@@ -71,4 +75,3 @@ if __name__ == '__main__':
     gateway.stop_fan()
     gateway.turn_light()
     #gateway.reverse_fan()
-

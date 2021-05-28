@@ -1,32 +1,28 @@
-from typing import Any, Callable, Dict, List, Optional
 import logging
+from typing import Any, Callable, Dict, List, Optional
+
 from homeassistant import config_entries, core
 from homeassistant.components.fan import (
     PLATFORM_SCHEMA,
-    FanEntity,
     SUPPORT_DIRECTION,
-    SUPPORT_SET_SPEED
+    SUPPORT_SET_SPEED,
+    FanEntity,
 )
-
-from homeassistant.util.percentage import ordered_list_item_to_percentage, percentage_to_ordered_list_item
-from homeassistant.const import (
-    CONF_HOST,
-    CONF_USERNAME,
-    CONF_PASSWORD,
-)
-
+from homeassistant.const import CONF_HOST, CONF_PASSWORD, CONF_USERNAME
 import homeassistant.helpers.config_validation as cv
 from homeassistant.helpers.typing import (
     ConfigType,
     DiscoveryInfoType,
     HomeAssistantType,
 )
-
-
+from homeassistant.util.percentage import (
+    ordered_list_item_to_percentage,
+    percentage_to_ordered_list_item,
+)
 import voluptuous as vol
-from .const import DOMAIN
 
 from .ceiling_fan import *
+from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -79,6 +75,7 @@ class CeilingFan(FanEntity):
         self._last_speed = ORDERED_NAMED_FAN_SPEEDS[0]
         self._direction = "forward"
         self._is_on = False
+        self._name = "Ceiling Fan"
 
     def turn_off(self, **kwargs: Any) -> None:
         """Turn the fan off."""
@@ -123,3 +120,12 @@ class CeilingFan(FanEntity):
     @property
     def is_on(self):
         return self._is_on
+    
+    @property
+    def name(self):
+        """Return the name of the sensor."""
+        return self._name
+    
+    @property
+    def unique_id(self):
+        return self._gateway.unique_id() + '_Fan'
